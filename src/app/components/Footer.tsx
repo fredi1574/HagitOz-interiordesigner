@@ -26,7 +26,7 @@ export default function Footer() {
           <p className="text-foreground/60 animate-fade-in-up text-sm transition-colors duration-300">
             {new Date().getFullYear()} Hagit Oz ©
           </p>
-          <div className="text-foreground/60 animate-fade-in-up animate-stagger-1 flex gap-3 text-sm transition-colors duration-300">
+          <div className="text-foreground/60 animate-fade-in-up flex gap-3 text-sm transition-colors delay-300 duration-300">
             {links.map((link) => (
               <a
                 key={link.href}
