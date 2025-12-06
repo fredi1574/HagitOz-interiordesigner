@@ -1,19 +1,13 @@
 "use client";
 
-import { FaWhatsapp } from "react-icons/fa";
 import { FormEvent, useState } from "react";
+import { FaWhatsapp } from "react-icons/fa";
+import { FiPhone } from "react-icons/fi";
+import { IoCheckmark, IoCloseCircle, IoRefresh } from "react-icons/io5";
+import { LuClock3, LuMapPin } from "react-icons/lu";
+import { MdOutlineMailOutline } from "react-icons/md";
 import { useLocale } from "../lib/LocaleProvider";
 import { getDirection } from "../lib/i18n";
-import {
-  IoCheckmark,
-  IoCloseCircle,
-  IoMailOutline,
-  IoRefresh,
-} from "react-icons/io5";
-import { FiPhone } from "react-icons/fi";
-import { MdAlternateEmail, MdOutlineMailOutline } from "react-icons/md";
-import { LuClock3, LuMapPin } from "react-icons/lu";
-import { CiMail } from "react-icons/ci";
 
 export default function ContactPage() {
   const { t, locale } = useLocale();
