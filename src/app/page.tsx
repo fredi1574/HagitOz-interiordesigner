@@ -46,7 +46,7 @@ const portfolioItems = [
 ] as const;
 
 const HomePage = (): JSX.Element => (
-  <div className="home-page" dir="rtl" lang="he">
+  <div dir="rtl" lang="he">
     <AboutSection />
     <AboutContentSection />
     <PhilosophySection />
@@ -70,22 +70,36 @@ const AboutSection = (): JSX.Element => (
 );
 
 const AboutContentSection = (): JSX.Element => (
-  <section className="home-about-content">
+  <section className="mx-auto my-20 max-w-[900px] px-[5%]">
     {aboutParagraphs.slice(1).map((text) => (
-      <p key={text}>{text}</p>
+      <p
+        className="text-text-secondary mb-[1.8rem] text-base leading-[2]"
+        key={text}
+      >
+        {text}
+      </p>
     ))}
   </section>
 );
 
 const PhilosophySection = (): JSX.Element => (
-  <section className="home-philosophy">
-    <div className="home-philosophy-content">
-      <h2 className="home-section-title">הגישה שלי לעיצוב</h2>
-      <div className="home-values">
+  <section className="from-bg-light to-muted bg-gradient-to-b p-8">
+    <div className="mx-auto max-w-[1200px] text-center">
+      <h2 className="mb-12 text-2xl font-light tracking-[2px] md:text-3xl">
+        הגישה שלי לעיצוב
+      </h2>
+      <div className="mt-16 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-12">
         {valueCards.map((value) => (
-          <article className="home-value-card" key={value.title}>
-            <h3>{value.title}</h3>
-            <p>{value.description}</p>
+          <article
+            className="bg-white px-8 py-12 shadow-[0_5px_20px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-2.5 hover:shadow-[0_15px_40px_rgba(0,0,0,0.15)]"
+            key={value.title}
+          >
+            <h3 className="text-accent mb-6 text-2xl font-normal tracking-[1px]">
+              {value.title}
+            </h3>
+            <p className="text-text-secondary text-[1.05rem] leading-[1.9]">
+              {value.description}
+            </p>
           </article>
         ))}
       </div>
@@ -94,11 +108,20 @@ const PhilosophySection = (): JSX.Element => (
 );
 
 const PortfolioSection = (): JSX.Element => (
-  <section className="home-portfolio" id="portfolio">
-    <h2 className="home-section-title">פרויקטים נבחרים</h2>
-    <div className="home-portfolio-grid">
+  <section
+    className="mx-auto my-32 max-w-[1400px] px-[5%] py-32"
+    id="portfolio"
+  >
+    <h2 className="mb-16 text-center text-2xl font-light tracking-[2px] md:text-3xl">
+      פרויקטים נבחרים
+    </h2>
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))]">
       {portfolioItems.map((item) => (
-        <div className="home-portfolio-item" key={item}>
+        <div
+          className="group from-muted via-accent to-text-primary relative flex h-[450px] cursor-pointer items-center justify-center overflow-hidden bg-gradient-to-br p-4 text-center text-base text-white shadow-[0_5px_25px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_15px_50px_rgba(0,0,0,0.2)]"
+          key={item}
+        >
+          <div className="from-accent/30 to-text-primary/40 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           {item}
         </div>
       ))}
