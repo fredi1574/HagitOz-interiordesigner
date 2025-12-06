@@ -1,29 +1,27 @@
 "use client";
 
-import { ButtonLink } from "@/app/components/Button";
 import { useLocale } from "@/app/lib/LocaleProvider";
+import Link from "next/link";
 
 export default function ProjectNotFound() {
   const { t } = useLocale();
 
   return (
-    <div className="h-[calc(100vh-200px)] flex items-center justify-center">
+    <div className="flex h-[calc(100vh-200px)] items-center justify-center">
       <div className="text-center">
-        <h1 className="text-9xl font-bold text-accent/30 mb-10">
+        <h1 className="mb-10 text-9xl font-bold">
           {t("notFound.title") as string}
         </h1>
 
         <div className="flex justify-center gap-10">
           <div>
-            <ButtonLink href="/" variant="primary">
-              {t("notFound.backToHome") as string}
-            </ButtonLink>
+            <Link href="/">{t("notFound.backToHome") as string}</Link>
           </div>
 
           <div>
-            <ButtonLink href="/projects" variant="secondary">
+            <Link href="/projects">
               {t("notFound.viewAllProjects") as string}
-            </ButtonLink>
+            </Link>
           </div>
         </div>
       </div>

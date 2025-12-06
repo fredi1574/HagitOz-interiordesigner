@@ -23,7 +23,7 @@ export default function ProjectCard({
       href={`/projects/${slug}`}
       className="group block transition-all duration-300 hover:scale-[1.03]"
     >
-      <div className="aspect-square overflow-hidden relative">
+      <div className="relative aspect-square overflow-hidden">
         {coverUrl ? (
           <Image
             src={coverUrl}
@@ -37,15 +37,15 @@ export default function ProjectCard({
             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
           />
         ) : null}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300">
-          <div className="px-4 py-2 border-2 border-white text-lg font-medium text-white transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-all duration-300 group-hover:opacity-100">
+          <div className="translate-y-2 transform border-2 border-white px-4 py-2 text-lg font-medium text-white transition-all duration-300 group-hover:translate-y-0">
             {t("projects.viewProject") as string}
           </div>
         </div>
       </div>
       <div className="mt-3 flex items-center justify-between">
         <div>
-          <div className="heading-sm group-hover:text-accent transition-colors duration-300">
+          <div className="heading-sm transition-colors duration-300">
             {title}
           </div>
           {location && (

@@ -3,15 +3,23 @@
 import { FaWhatsapp } from "react-icons/fa";
 import { FormEvent, useState } from "react";
 import { useLocale } from "../lib/LocaleProvider";
-import { IoCheckmark, IoCloseCircle, IoRefresh } from "react-icons/io5";
+import { getDirection } from "../lib/i18n";
+import {
+  IoCheckmark,
+  IoCloseCircle,
+  IoMailOutline,
+  IoRefresh,
+} from "react-icons/io5";
 import { FiPhone } from "react-icons/fi";
-import { MdAlternateEmail } from "react-icons/md";
+import { MdAlternateEmail, MdOutlineMailOutline } from "react-icons/md";
 import { LuClock3, LuMapPin } from "react-icons/lu";
+import { CiMail } from "react-icons/ci";
 
 export default function ContactPage() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
+  const dir = getDirection(locale);
   const [status, setStatus] = useState<"idle" | "submitting" | "success">(
-    "idle"
+    "idle",
   );
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -34,7 +42,7 @@ export default function ContactPage() {
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         throw new Error(
-          data?.error || (t("contact.form.errorFailed") as string)
+          data?.error || (t("contact.form.errorFailed") as string),
         );
       }
       setStatus("success");
@@ -50,18 +58,17 @@ export default function ContactPage() {
 
   if (status === "success") {
     return (
-      <div className="contact-page min-h-[calc(100vh-200px)] flex items-center justify-center py-8 px-4">
-        <div className="max-w-2xl mx-auto text-center animate-fade-in-up w-full">
-          <div className="bg-gradient-to-br from-accent/10 to-accent/5 p-8 border border-accent/20 rounded-3xl">
-            <div className="w-16 h-16 mx-auto mb-6 bg-accent/10 rounded-full flex items-center justify-center">
-              <IoCheckmark className="w-8 h-8 text-accent" />
+      <div className="contact-page flex min-h-[calc(100vh-200px)] items-center justify-center px-4 py-8">
+        <div className="animate-fade-in-up mx-auto w-full max-w-2xl text-center">
+          <div className="from-accent/10 to-accent/5 border-accent/20 rounded-3xl border bg-gradient-to-br p-8">
+            <div className="bg-accent/10 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full">
+              <IoCheckmark className="h-8 w-8" />
             </div>
-            <h3 className="heading-md text-accent mb-4">
-              {(t("contact.form.successTitle") as string) || "Message Sent!"}
+            <h3 className="heading-md mb-4">
+              {t("contact.form.successTitle") as string}
             </h3>
             <p className="text-body text-foreground/70 mb-6">
-              {(t("contact.form.successMessage") as string) ||
-                "Thank you for your inquiry. I'll get back to you as soon as possible to discuss your project."}
+              {t("contact.form.successMessage") as string}
             </p>
             <button
               onClick={() => {
@@ -72,10 +79,9 @@ export default function ContactPage() {
                 setMessage("");
                 setError(null);
               }}
-              className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium transition-all duration-300 bg-accent text-background hover:brightness-95 hover:scale-105 shadow-sm rounded-xl"
+              className="bg-accent text-background inline-flex items-center justify-center px-6 py-3 text-sm font-medium shadow-sm transition-all duration-300 hover:scale-105 hover:brightness-95"
             >
-              {(t("contact.form.sendAnother") as string) ||
-                "Send Another Message"}
+              {t("contact.form.sendAnother") as string}
             </button>
           </div>
         </div>
@@ -84,34 +90,22 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="contact-page min-h-[calc(100vh-200px)] py-10 px-4">
-      <div className="max-w-4xl mx-auto w-full">
-        <div className=" rounded-3xl overflow-hidden">
+    <div className="contact-page">
+      <div className="mx-auto w-full">
+        <div className="overflow-hidden rounded-3xl">
           {/* Header Section */}
-          <div className="bg-gradient-to-br from-accent to-[#a89885] text-background py-16 px-8 md:px-12 text-center">
-            <h1 className="heading-xl mb-6 text-background font-light tracking-wide">
-              {(t("contact.headerTitle") as string) ||
-                "Let's start planning together"}
-            </h1>
-          </div>
+          <section className="hero">
+            <h1 className="hero-title">{t("contact.headerTitle") as string}</h1>
+          </section>
 
           {/* Content Section */}
-          <div className="p-8 md:p-12">
+          <div className="mx-auto w-full max-w-4xl p-8 md:p-12">
             <form onSubmit={onSubmit}>
-              <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-12">
+              <div className="mb-12 flex flex-col gap-8 lg:flex-row lg:gap-12">
                 {/* Form Section */}
                 <div className="lg:w-3/5">
                   <div className="space-y-6">
                     <div>
-                      <label
-                        htmlFor="fullName"
-                        className="block mb-2 text-foreground font-medium text-sm"
-                      >
-                        {(t("contact.nameLabel") as string) || "Full name"}{" "}
-                        <span className="text-red-500">
-                          {t("contact.required") as string}
-                        </span>
-                      </label>
                       <input
                         type="text"
                         id="fullName"
@@ -120,20 +114,16 @@ export default function ContactPage() {
                         onChange={(e) => setName(e.target.value)}
                         required
                         disabled={status === "submitting"}
-                        className="w-full px-4 py-4 border-2 border-[#e0e0e0] rounded-xl text-base transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_3px_rgba(191,163,149,0.1)] disabled:opacity-60"
+                        dir={dir}
+                        placeholder={
+                          (t("contact.form.namePlaceholder") as string) ||
+                          "Name"
+                        }
+                        className="focus:border-accent border-border-light w-full border-2 px-4 py-4 text-base transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(191,163,149,0.1)] focus:outline-none disabled:opacity-60"
                       />
                     </div>
 
                     <div>
-                      <label
-                        htmlFor="phone"
-                        className="block mb-2 text-foreground font-medium text-sm"
-                      >
-                        {(t("contact.phoneLabel") as string) || "Phone"}{" "}
-                        <span className="text-red-500">
-                          {t("contact.required") as string}
-                        </span>
-                      </label>
                       <input
                         type="tel"
                         id="phone"
@@ -142,17 +132,16 @@ export default function ContactPage() {
                         onChange={(e) => setPhone(e.target.value)}
                         required
                         disabled={status === "submitting"}
-                        className="w-full px-4 py-4 border-2 border-[#e0e0e0] rounded-xl text-base transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_3px_rgba(191,163,149,0.1)] disabled:opacity-60"
+                        dir={dir}
+                        placeholder={
+                          (t("contact.form.phonePlaceholder") as string) ||
+                          "Phone"
+                        }
+                        className="focus:border-accent border-border-light w-full border-2 px-4 py-4 text-base transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(191,163,149,0.1)] focus:outline-none disabled:opacity-60"
                       />
                     </div>
 
                     <div>
-                      <label
-                        htmlFor="email"
-                        className="block mb-2 text-foreground font-medium text-sm"
-                      >
-                        {(t("contact.emailLabel") as string) || "Email"}
-                      </label>
                       <input
                         type="email"
                         id="email"
@@ -160,18 +149,16 @@ export default function ContactPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={status === "submitting"}
-                        className="w-full px-4 py-4 border-2 border-[#e0e0e0] rounded-xl text-base transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_3px_rgba(191,163,149,0.1)] disabled:opacity-60"
+                        dir={dir}
+                        placeholder={
+                          (t("contact.form.emailPlaceholder") as string) ||
+                          "Email"
+                        }
+                        className="focus:border-accent border-border-light w-full border-2 px-4 py-4 text-base transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(191,163,149,0.1)] focus:outline-none disabled:opacity-60"
                       />
                     </div>
 
                     <div>
-                      <label
-                        htmlFor="message"
-                        className="block mb-2 text-foreground font-medium text-sm"
-                      >
-                        {(t("contact.messageLabel") as string) ||
-                          "Tell me a bit about the project"}
-                      </label>
                       <textarea
                         id="message"
                         name="message"
@@ -179,7 +166,12 @@ export default function ContactPage() {
                         onChange={(e) => setMessage(e.target.value)}
                         rows={4}
                         disabled={status === "submitting"}
-                        className="w-full px-4 py-4 border-2 border-[#e0e0e0] rounded-xl text-base transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_3px_rgba(191,163,149,0.1)] resize-y min-h-[150px] disabled:opacity-60"
+                        dir={dir}
+                        placeholder={
+                          (t("contact.form.messagePlaceholder") as string) ||
+                          "Tell us about your project"
+                        }
+                        className="focus:border-accent border-border-light min-h-[150px] w-full resize-y border-2 px-4 py-4 text-base transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(191,163,149,0.1)] focus:outline-none disabled:opacity-60"
                       />
                     </div>
                   </div>
@@ -187,18 +179,18 @@ export default function ContactPage() {
 
                 {/* Contact Info Section */}
                 <div className="lg:w-3/5">
-                  <div className="pt-0 pb-2 px-2 md:pt-0 md:pb-10 md:px-10">
+                  <div className="px-2 pt-0 pb-2 md:px-10 md:pt-0 md:pb-10">
                     <div className="space-y-5">
                       {/* Phone */}
-                      <div className="flex items-center gap-4 p-4  rounded-xl transition-all duration-300 hover:scale-[1.02]">
-                        <div className="text-2xl min-w-[30px]">
+                      <div className="flex items-center gap-4 p-4 transition-all duration-300 hover:scale-[1.02]">
+                        <div className="min-w-[30px] text-2xl">
                           <FiPhone />
                         </div>
                         <div className="flex-1">
                           <span className="text-foreground/70">
                             <a
                               href="tel:+972503200133"
-                              className="text-accent no-underline transition-colors duration-300 hover:text-foreground"
+                              className="hover:text-foreground no-underline transition-colors duration-300"
                             >
                               050-3200133
                             </a>
@@ -207,35 +199,34 @@ export default function ContactPage() {
                       </div>
 
                       {/* WhatsApp */}
-                      <div className="flex items-center gap-4 p-4  rounded-xl transition-all duration-300 hover:scale-[1.02]">
-                        <div className="text-2xl min-w-[30px]">
+                      <div className="flex items-center gap-4 p-4 transition-all duration-300 hover:scale-[1.02]">
+                        <div className="min-w-[30px] text-2xl">
                           <FaWhatsapp />
                         </div>
                         <div className="flex-1">
                           <span className="text-foreground/70">
                             <a
-                              href="https://wa.me/972500000000"
+                              href="https://wa.me/972503200133"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-accent no-underline transition-colors duration-300 hover:text-foreground"
+                              className="hover:text-foreground no-underline transition-colors duration-300"
                             >
-                              {(t("contact.whatsappLink") as string) ||
-                                "Send a message"}
+                              {t("contact.whatsappLink") as string}
                             </a>
                           </span>
                         </div>
                       </div>
 
                       {/* Email */}
-                      <div className="flex items-center gap-4 p-4  rounded-xl transition-all duration-300 hover:scale-[1.02]">
-                        <div className="text-2xl min-w-[30px]">
-                          <MdAlternateEmail />
+                      <div className="flex items-center gap-4 p-4 transition-all duration-300 hover:scale-[1.02]">
+                        <div className="min-w-[30px] text-2xl">
+                          <MdOutlineMailOutline />
                         </div>
                         <div className="flex-1">
                           <span className="text-foreground/70">
                             <a
                               href="mailto:design@example.com"
-                              className="text-accent no-underline transition-colors duration-300 hover:text-foreground"
+                              className="hover:text-foreground no-underline transition-colors duration-300"
                             >
                               design@example.com
                             </a>
@@ -244,8 +235,8 @@ export default function ContactPage() {
                       </div>
 
                       {/* Location */}
-                      <div className="flex items-center gap-4 p-4  rounded-xl transition-all duration-300 hover:scale-[1.02]">
-                        <div className="text-2xl min-w-[30px]">
+                      <div className="flex items-center gap-4 p-4 transition-all duration-300 hover:scale-[1.02]">
+                        <div className="min-w-[30px] text-2xl">
                           <LuMapPin />
                         </div>
                         <div className="flex-1">
@@ -257,8 +248,8 @@ export default function ContactPage() {
                       </div>
 
                       {/* Hours */}
-                      <div className="flex items-center gap-4 p-4  rounded-xl transition-all duration-300 hover:scale-[1.02]">
-                        <div className="text-2xl min-w-[30px]">
+                      <div className="flex items-center gap-4 p-4 transition-all duration-300 hover:scale-[1.02]">
+                        <div className="min-w-[30px] text-2xl">
                           <LuClock3 />
                         </div>
                         <div className="flex-1">
@@ -275,9 +266,9 @@ export default function ContactPage() {
 
               {/* Error and Submit Button */}
               {error && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-xl animate-fade-in-up mb-6">
+                <div className="animate-fade-in-up mb-6 border border-red-200 bg-red-50 p-4">
                   <div className="flex items-center gap-3">
-                    <IoCloseCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                    <IoCloseCircle className="h-5 w-5 flex-shrink-0 text-red-500" />
                     <p className="text-caption text-red-700">{error}</p>
                   </div>
                 </div>
@@ -286,10 +277,10 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={status !== "idle"}
-                className="w-1/2 py-5 bg-gradient-to-br from-accent mb-4 to-[#a89885] text-background border-none text-lg font-medium cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_5px_20px_rgba(191,163,149,0.4)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none flex items-center justify-center gap-3 tracking-wide"
+                className="from-accent text-background to-accent-dark mb-4 flex w-1/2 cursor-pointer items-center justify-center gap-3 border-none bg-gradient-to-br py-5 text-lg font-medium tracking-wide transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_5px_20px_rgba(191,163,149,0.4)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-none"
               >
                 {status === "submitting" && (
-                  <IoRefresh className="w-5 h-5 animate-spin" />
+                  <IoRefresh className="h-5 w-5 animate-spin" />
                 )}
                 {status === "submitting"
                   ? (t("contact.form.submitSubmitting") as string)

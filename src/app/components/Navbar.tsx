@@ -49,8 +49,8 @@ function NavLinks({
       {linkDefs.map((link) => {
         const active = pathname === link.href;
         const stateClasses = active
-          ? "text-[#B8A195] font-medium"
-          : "text-[#615B55] hover:text-accent";
+          ? "text-accent-alt font-medium"
+          : "text-text-secondary hover:text-accent-alt";
         return (
           <Link
             key={link.href}
@@ -68,7 +68,7 @@ function NavLinks({
 
 function DesktopNav({ pathname, t }: DesktopNavProps): JSX.Element {
   return (
-    <nav className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
+    <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 md:flex">
       <NavLinks
         itemClass="site-nav-link text-caption transition-all duration-300 hover:scale-105 animate-fade-in-up"
         pathname={pathname}
@@ -98,7 +98,7 @@ function MobileDrawer({
 }: MobileDrawerProps): JSX.Element {
   return (
     <div
-      className="md:hidden fixed inset-0 z-50 flex"
+      className="fixed inset-0 z-50 flex md:hidden"
       role="dialog"
       aria-modal="true"
       aria-label="Site navigation"
@@ -109,22 +109,22 @@ function MobileDrawer({
         className="absolute inset-0 bg-black/40 backdrop-blur-sm"
         onClick={onNavigate}
       />
-      <div className="ml-auto flex h-full w-72 flex-col border-l border-border bg-background shadow-2xl animate-slide-in-right">
-        <div className="flex items-center justify-end border-b border-border px-4 py-3">
+      <div className="border-border bg-background animate-slide-in-right ml-auto flex h-full w-72 flex-col border-l shadow-2xl">
+        <div className="border-border flex items-center justify-end border-b px-4 py-3">
           <button
             type="button"
             aria-label="Close navigation drawer"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border transition-colors hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="border-border hover:border-accent focus-visible:ring-accent flex h-9 w-9 items-center justify-center rounded-full border transition-colors focus-visible:ring-2 focus-visible:outline-none"
             onClick={onNavigate}
           >
             <span className="sr-only">Close</span>
             <span className="relative block h-4 w-4">
-              <span className="absolute left-1/2 top-1/2 h-0.5 w-full -translate-x-1/2 bg-foreground rotate-45" />
-              <span className="absolute left-1/2 top-1/2 h-0.5 w-full -translate-x-1/2 bg-foreground -rotate-45" />
+              <span className="bg-foreground absolute top-1/2 left-1/2 h-0.5 w-full -translate-x-1/2 rotate-45" />
+              <span className="bg-foreground absolute top-1/2 left-1/2 h-0.5 w-full -translate-x-1/2 -rotate-45" />
             </span>
           </button>
         </div>
-        <nav className="flex flex-col gap-3 px-5 py-6 overflow-y-auto">
+        <nav className="flex flex-col gap-3 overflow-y-auto px-5 py-6">
           <NavLinks
             itemClass="site-nav-link text-base transition-colors duration-300"
             onNavigate={onNavigate}
@@ -132,7 +132,7 @@ function MobileDrawer({
             t={t}
           />
         </nav>
-        <div className="mt-auto border-t border-border px-5 py-5">
+        <div className="border-border mt-auto border-t px-5 py-5">
           <LanguageSwitcher menuPlacement="top" />
         </div>
       </div>
@@ -156,7 +156,7 @@ function MobileNav({
 
   return createPortal(
     <MobileDrawer onNavigate={onNavigate} pathname={pathname} t={t} />,
-    document.body
+    document.body,
   );
 }
 
@@ -166,21 +166,21 @@ function MobileToggle({ onToggle, open }: MobileToggleProps): JSX.Element {
       type="button"
       aria-label="Toggle navigation menu"
       aria-expanded={open}
-      className="md:hidden flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full border border-border transition-colors hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      className="border-border hover:border-accent focus-visible:ring-accent flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full border transition-colors focus-visible:ring-2 focus-visible:outline-none md:hidden"
       onClick={onToggle}
     >
       <span
-        className={`h-0.5 w-6 rounded bg-foreground transition-transform ${
+        className={`bg-foreground h-0.5 w-6 rounded transition-transform ${
           open ? "translate-y-1.5 rotate-45" : ""
         }`}
       />
       <span
-        className={`h-0.5 w-6 rounded bg-foreground transition-opacity ${
+        className={`bg-foreground h-0.5 w-6 rounded transition-opacity ${
           open ? "opacity-0" : ""
         }`}
       />
       <span
-        className={`h-0.5 w-6 rounded bg-foreground transition-transform ${
+        className={`bg-foreground h-0.5 w-6 rounded transition-transform ${
           open ? "-translate-y-1.5 -rotate-45" : ""
         }`}
       />
@@ -196,7 +196,7 @@ export default function Navbar(): JSX.Element {
   useEffect(() => setMobileOpen(false), [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b hairline backdrop-blur bg-background/70 animate-fade-in">
+    <header className="hairline bg-background/70 animate-fade-in sticky top-0 z-40 w-full border-b backdrop-blur">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center">
           {/* <Logo label={t("nav.logo") as string} /> */}

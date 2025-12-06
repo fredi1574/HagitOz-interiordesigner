@@ -1,4 +1,6 @@
 import type { JSX } from "react";
+import { Hero } from "../components/Hero";
+import { CTA } from "../components/CTA";
 
 export const metadata = { title: "About" };
 
@@ -42,33 +44,37 @@ const values = [
  * @returns {JSX.Element} Full about experience in Hebrew RTL layout.
  */
 const AboutPage = (): JSX.Element => (
-  <div className="about-page" dir="rtl" lang="he">
-    <HeroSection />
+  <div className="leading-[1.9]" dir="rtl" lang="he">
+    <Hero title="נעים להכיר" />
     <StorySection />
     <ApproachSection />
     <ValuesSection />
     <ClosingSection />
-    <CtaSection />
+    <CTA />
   </div>
 );
 
-const HeroSection = (): JSX.Element => (
-  <section className="about-hero">
-    <h1 className="about-hero-title">נעים להכיר</h1>
-  </section>
-);
-
 const StorySection = (): JSX.Element => (
-  <section className="about-story-with-image max-w-7xl mx-auto">
-    <div className="about-image-float">[תמונה של המעצבת]</div>
+  <section className="mx-auto max-w-7xl overflow-hidden py-8">
+    <div className="mb-8 flex h-[400px] w-full items-center justify-center bg-gradient-to-br from-muted to-accent text-center text-text-primary md:float-right md:ml-8 md:h-[600px] md:w-[40%] md:max-w-[500px] md:[shape-outside:inset(0)]">
+      [תמונה של המעצבת]
+    </div>
     {storyParagraphs.map((text) => (
-      <p className="about-section-paragraph" key={text}>
+      <p
+        className="text-text-primary mb-8 text-[1.15rem] leading-[2.2]"
+        key={text}
+      >
         {text}
       </p>
     ))}
-    <p className="about-highlight">ומכאן זה התחיל...</p>
+    <p className="border-r-accent bg-bg-light text-accent my-4 border-r-4 px-6 py-6 text-[1.25rem] font-normal leading-[2] md:[margin-right:calc(40%+2rem)]">
+      ומכאן זה התחיל...
+    </p>
     {storyJourney.map((text) => (
-      <p className="about-section-paragraph" key={text}>
+      <p
+        className="text-text-primary mb-8 text-[1.15rem] leading-[2.2]"
+        key={text}
+      >
         {text}
       </p>
     ))}
@@ -76,26 +82,38 @@ const StorySection = (): JSX.Element => (
 );
 
 const ApproachSection = (): JSX.Element => (
-  <section className="max-w-7xl mx-auto">
+  <section className="mx-auto max-w-7xl">
     {approachParagraphs.map((text) => (
-      <p className="about-section-paragraph" key={text}>
+      <p
+        className="text-text-primary mb-8 text-[1.15rem] leading-[2.2]"
+        key={text}
+      >
         {text}
       </p>
     ))}
-    <p className="about-highlight">
+    <p className="border-r-accent bg-bg-light text-accent my-4 border-r-4 px-6 py-6 text-[1.25rem] font-normal leading-[2]">
       בעיניי, עיצוב הוא לא רק איך המקום נראה, אלא איך הוא גורם לנו להרגיש.
     </p>
   </section>
 );
 
 const ValuesSection = (): JSX.Element => (
-  <section className="about-values">
-    <h2 className="about-values-title">הערכים שמנחים אותי</h2>
-    <div className="about-values-grid">
+  <section className="from-bg-light to-muted my-24 bg-gradient-to-b px-[5%] py-20 text-center">
+    <h2 className="text-text-primary mb-16 text-[clamp(2rem,5vw,2.5rem)] font-light tracking-[2px]">
+      הערכים שמנחים אותי
+    </h2>
+    <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-12">
       {values.map((value) => (
-        <article className="about-value-card" key={value.title}>
-          <h3 className="about-value-title">{value.title}</h3>
-          <p className="about-value-description">{value.description}</p>
+        <article
+          className="bg-white p-8 text-center shadow-[0_5px_20px_rgba(0,0,0,0.05)] transition-transform duration-300 hover:-translate-y-2.5"
+          key={value.title}
+        >
+          <h3 className="text-accent mb-4 text-[1.4rem] font-normal tracking-[1px]">
+            {value.title}
+          </h3>
+          <p className="text-text-primary text-[1.05rem] leading-[1.9]">
+            {value.description}
+          </p>
         </article>
       ))}
     </div>
@@ -103,23 +121,11 @@ const ValuesSection = (): JSX.Element => (
 );
 
 const ClosingSection = (): JSX.Element => (
-  <section className="about-closing">
-    <p className="about-closing-text">
+  <section className="mx-auto my-24 max-w-[900px] px-[5%] text-center">
+    <p className="text-text-primary text-[1.3rem] leading-[2]">
       אני מזמינה אתכם למסע משותף שבו נבין יחד מה באמת חשוב לכם, נחלום על
       האפשרויות, וניצור את הבית שמשקף את מי שאתם באמת.
     </p>
-  </section>
-);
-
-const CtaSection = (): JSX.Element => (
-  <section className="about-cta" id="contact">
-    <h2 className="about-cta-title">בואו נתחיל את המסע שלכם</h2>
-    <p className="about-cta-text">
-      אשמח לשמוע על הבית שלכם ולגלות יחד את הפוטנציאל שמחכה בו
-    </p>
-    <a className="about-cta-button" href="mailto:contact@itztrubel.co.il">
-      צרו קשר
-    </a>
   </section>
 );
 

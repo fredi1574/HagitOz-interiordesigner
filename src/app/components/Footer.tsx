@@ -20,13 +20,13 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="border-t hairline animate-fade-in">
+    <footer className="hairline animate-fade-in border-t">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-foreground/60 hover:text-accent transition-colors duration-300 animate-fade-in-up">
+        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+          <p className="text-foreground/60 animate-fade-in-up text-sm transition-colors duration-300">
             {new Date().getFullYear()} Hagit Oz ©
           </p>
-          <div className="text-sm flex gap-3 text-foreground/60 hover:text-accent transition-colors duration-300 animate-fade-in-up animate-stagger-1">
+          <div className="text-foreground/60 animate-fade-in-up animate-stagger-1 flex gap-3 text-sm transition-colors duration-300">
             {links.map((link) => (
               <a
                 key={link.href}

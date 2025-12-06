@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
 import type { JSX } from "react";
+import { Hero } from "./components/Hero";
+import { CTA } from "./components/CTA";
 
 const aboutParagraphs = [
   "כאן מתחיל מסע שעובר דרך קירות, צבעים ורהיטים, אבל בליבו הוא עוסק ביצירת בית שמרגיש שלכם ושמשקף את מי שאתם באמת.",
@@ -51,24 +51,22 @@ const HomePage = (): JSX.Element => (
     <AboutContentSection />
     <PhilosophySection />
     <PortfolioSection />
-    <CallToActionSection />
+    <CTA />
   </div>
 );
 
 const AboutSection = (): JSX.Element => (
-  <section className="home-about-hero" id="about">
-    <div className="home-about-hero-logo">
-      <Image
-        src="/logo.png"
-        alt="Iztrubal logo"
-        width={210}
-        height={210}
-        className="home-about-hero-logo-image"
-      />
-    </div>
-    <h1 className="home-about-hero-title">ברוכים הבאים</h1>
-    <p className="home-about-hero-text">{aboutParagraphs[0]}</p>
-  </section>
+  <Hero
+    id="about"
+    logo={{
+      alt: "Iztrubal logo",
+      height: 210,
+      src: "/logo.png",
+      width: 210,
+    }}
+    text={aboutParagraphs[0]}
+    title="ברוכים הבאים"
+  />
 );
 
 const AboutContentSection = (): JSX.Element => (
@@ -105,20 +103,6 @@ const PortfolioSection = (): JSX.Element => (
         </div>
       ))}
     </div>
-  </section>
-);
-
-const CallToActionSection = (): JSX.Element => (
-  <section className="home-cta" id="contact">
-    <h2 className="home-section-title">מוכנים להתחיל?</h2>
-    <p className="home-cta-text">
-      בואו נדבר על איך אפשר להפוך את הבית שלכם
-      <br />
-      למקום שבאמת מרגיש כמו בית
-    </p>
-    <Link className="home-cta-secondary mb-4" href="/contact">
-      צרו קשר
-    </Link>
   </section>
 );
 

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import type { JSX } from "react";
+import { Hero } from "../components/Hero";
+import { CTA } from "../components/CTA";
 
 export const metadata = { title: "Services" };
 
@@ -142,42 +144,49 @@ const faqItems = [
 ] as const;
 
 const ServicesPage = (): JSX.Element => (
-  <div className="services-page" dir="rtl" lang="he">
-    <HeroSection />
+  <div className="leading-[1.8]" dir="rtl" lang="he">
+    <Hero
+      text="מייעוץ ראשוני ועד ליווי מלא - אני כאן כדי להפוך את החלל שלכם לבית"
+      title="השירותים שלי"
+    />
     <IntroSection />
     <ServicesSection />
     <ProcessSection />
     <FaqSection />
-    <CtaSection />
+    <CTA />
   </div>
 );
 
-const HeroSection = (): JSX.Element => (
-  <section className="services-hero">
-    <h1 className="services-hero-title">השירותים שלי</h1>
-    <p className="services-hero-text">
-      מייעוץ ראשוני ועד ליווי מלא - אני כאן כדי להפוך את החלל שלכם לבית
-    </p>
-  </section>
-);
-
 const IntroSection = (): JSX.Element => (
-  <section className="services-intro">
-    <p className="services-intro-text">{introText}</p>
+  <section className="mx-auto my-20 max-w-[900px] px-[5%] text-center">
+    <p className="text-text-primary text-[1.2rem] leading-[2.2]">{introText}</p>
   </section>
 );
 
 const ServicesSection = (): JSX.Element => (
-  <section className="services-container">
-    <div className="services-grid">
+  <section className="mx-auto my-24 max-w-[1800px] px-[5%]">
+    <div className="grid grid-cols-3 gap-12">
       {services.map((service) => (
-        <article className="services-card" key={service.title}>
-          <h3 className="services-title">{service.title}</h3>
-          <p className="services-subtitle">{service.subtitle}</p>
-          <p className="services-description">{service.description}</p>
-          <ul className="services-features">
+        <article
+          className="hover:border-r-accent bg-muted/20 hover:bg-muted/40 border-r-4 border-r-transparent p-12 shadow-[0_5px_25px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(0,0,0,0.15)]"
+          key={service.title}
+        >
+          <h3 className="text-text-primary mb-4 text-[1.8rem] font-normal tracking-[1px]">
+            {service.title}
+          </h3>
+          <p className="text-accent mb-6 text-[1.1rem] italic">
+            {service.subtitle}
+          </p>
+          <p className="text-text-primary mb-6 text-[1.05rem] leading-[2]">
+            {service.description}
+          </p>
+          <ul className="mt-6 list-none p-0">
             {service.features.map((feature) => (
-              <li className="services-feature" key={feature}>
+              <li
+                className="border-bg-light text-text-primary relative border-b py-[0.7rem] text-base last:border-b-0"
+                key={feature}
+              >
+                <span className="text-accent ml-2 font-bold">✓</span>
                 {feature}
               </li>
             ))}
@@ -189,23 +198,34 @@ const ServicesSection = (): JSX.Element => (
 );
 
 const ProcessSection = (): JSX.Element => (
-  <section className="services-process">
-    <h2 className="services-process-title">איך אנחנו עובדים יחד?</h2>
-    <div className="services-steps">
+  <section className="from-bg-light to-muted my-24 bg-gradient-to-b px-[5%] py-24 text-center">
+    <h2 className="text-text-primary mb-16 text-[clamp(2rem,4vw,2.5rem)] font-light tracking-[2px]">
+      איך אנחנו עובדים יחד?
+    </h2>
+    <div className="mx-auto grid max-w-[1100px] grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-8 max-md:grid-cols-2 max-sm:grid-cols-1">
       {processSteps.map((step) => (
-        <article className="services-step" key={step.number}>
-          <div className="services-step-icon">
+        <article
+          className="relative bg-white p-8 pb-10 text-center shadow-[0_12px_35px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(0,0,0,0.12)]"
+          key={step.number}
+        >
+          <div className="from-bg-lighter to-bg-light mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-[30px] bg-gradient-to-br shadow-[inset_0_1px_8px_rgba(255,255,255,0.6)]">
             <Image
               alt={step.title}
-              className="services-step-icon-image"
+              className="h-auto w-[80%]"
               height={96}
               src={step.icon}
               width={96}
             />
           </div>
-          <div className="services-step-number">{step.number}</div>
-          <h4 className="services-step-title">{step.title}</h4>
-          <p className="services-step-text">{step.text}</p>
+          <div className="bg-accent mx-auto mb-5 flex h-[52px] w-[52px] items-center justify-center rounded-full text-xl font-semibold text-white shadow-[0_8px_20px_rgba(191,163,149,0.4)]">
+            {step.number}
+          </div>
+          <h4 className="text-text-primary mb-4 text-[1.3rem] font-normal">
+            {step.title}
+          </h4>
+          <p className="text-text-primary text-base leading-[1.8]">
+            {step.text}
+          </p>
         </article>
       ))}
     </div>
@@ -213,26 +233,23 @@ const ProcessSection = (): JSX.Element => (
 );
 
 const FaqSection = (): JSX.Element => (
-  <section className="services-faq">
-    <h2 className="services-faq-title">שאלות נפוצות</h2>
+  <section className="mx-auto my-24 max-w-[900px] px-[5%]">
+    <h2 className="text-text-primary mb-12 text-center text-[clamp(2rem,4vw,2.5rem)] font-light tracking-[2px]">
+      שאלות נפוצות
+    </h2>
     {faqItems.map((item) => (
-      <article className="services-faq-item" key={item.question}>
-        <h4 className="services-faq-question">{item.question}</h4>
-        <p className="services-faq-answer">{item.answer}</p>
+      <article
+        className="mb-6 bg-white p-8 shadow-[0_3px_15px_rgba(0,0,0,0.05)]"
+        key={item.question}
+      >
+        <h4 className="text-accent mb-4 text-[1.3rem] font-medium">
+          {item.question}
+        </h4>
+        <p className="text-text-primary text-[1.05rem] leading-[2]">
+          {item.answer}
+        </p>
       </article>
     ))}
-  </section>
-);
-
-const CtaSection = (): JSX.Element => (
-  <section className="services-cta">
-    <h2 className="services-cta-title">בואו נתחיל לעצב את הבית שלכם</h2>
-    <p className="services-cta-text">
-      אשמח לשמוע על הפרויקט שלכם ולגלות יחד איך אני יכולה לעזור
-    </p>
-    <a className="services-cta-button" href="/contact">
-      צרו קשר לייעוץ ראשוני
-    </a>
   </section>
 );
 

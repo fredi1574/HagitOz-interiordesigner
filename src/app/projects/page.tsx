@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { JSX } from "react";
 import { headers } from "next/headers";
+import { Hero } from "../components/Hero";
+import { CTA } from "../components/CTA";
 
 export const metadata = { title: "Projects" };
 export const dynamic = "force-dynamic";
@@ -52,35 +54,30 @@ async function getProjects(): Promise<ProjectSummary[]> {
 const PortfolioPage = async (): Promise<JSX.Element> => {
   const projects = await getProjects();
   return (
-    <div className="projects-page" dir="rtl" lang="he">
-      <HeroSection />
-      <div className="projects-container">
+    <div className="leading-[1.8]" dir="rtl" lang="he">
+      <Hero
+        text="כל פרויקט הוא סיפור ייחודי של הקשבה, יצירה והפיכת חלל לבית אמיתי"
+        title="פרויקטים"
+      />
+      <div className="mx-auto my-20 max-w-[1400px] px-[5%]">
         <InfoBanner />
         <PortfolioGrid projects={projects} />
       </div>
-      <CtaSection />
+      <CTA />
     </div>
   );
 };
 
-const HeroSection = (): JSX.Element => (
-  <section className="projects-hero">
-    <h1 className="projects-hero-title">תיק עבודות</h1>
-    <p className="projects-hero-text">
-      כל פרויקט הוא סיפור ייחודי של הקשבה, יצירה והפיכת חלל לבית אמיתי
-    </p>
-  </section>
-);
-
 const InfoBanner = (): JSX.Element => (
-  <div className="projects-info">
-    <h2 className="projects-info-title">איכות על פני כמות</h2>
-    <p className="projects-info-text">
-      אני בוחרת להציג כל פרויקט בצורה מפורטת ומעמיקה, כך שתוכלו באמת להכיר את
-      תהליך העבודה והתוצאה. פרויקטים נוספים מתווספים באופן שוטף, כשהם מוכנים
-      להצגה מושלמת.
+  <div className="mx-auto mb-20 max-w-[800px] bg-white p-12 text-center">
+    <p className="text-text-primary mb-8 text-[1.1rem] leading-[1.8]">
+      הפרויקטים מוצגים בצורה מפורטת שתעזור לכם להכיר את תהליך העבודה והתוצאה
+      הסופית. פרויקטים חדשים מתווספים שאופן שוטף ברגע שהם מוכנים להצגה מושלמת
     </p>
-    <a className="projects-info-button" href="/contact">
+    <a
+      className="bg-accent hover:bg-text-primary inline-block px-10 py-4 text-base tracking-[1px] text-white no-underline transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_5px_20px_rgba(191,163,149,0.3)]"
+      href="/contact"
+    >
       בואו נדבר על הפרויקט שלכם
     </a>
   </div>
@@ -91,7 +88,7 @@ type PortfolioGridProps = {
 };
 
 const PortfolioGrid = ({ projects }: PortfolioGridProps): JSX.Element => (
-  <div className="projects-grid">
+  <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-10">
     {projects.map((project) => (
       <ProjectCard key={project.slug} project={project} />
     ))}
@@ -110,9 +107,12 @@ type ProjectCardProps = {
 };
 
 const ProjectCard = ({ project }: ProjectCardProps): JSX.Element => (
-  <Link className="projects-card" href={`/projects/${project.slug}`}>
+  <Link
+    className="group block overflow-hidden bg-white shadow-[0_5px_25px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-2.5 hover:shadow-[0_15px_40px_rgba(0,0,0,0.2)]"
+    href={`/projects/${project.slug}`}
+  >
     <div
-      className="projects-image"
+      className="from-muted to-accent text-text-primary relative flex h-[400px] items-center justify-center bg-gradient-to-br bg-cover bg-center text-base"
       style={
         project.coverUrl
           ? {
@@ -122,10 +122,14 @@ const ProjectCard = ({ project }: ProjectCardProps): JSX.Element => (
       }
     >
       {!project.coverUrl ? `[תמונה - ${project.title}]` : null}
-      <div className="projects-overlay">
-        <h3 className="projects-title">{project.title}</h3>
+      <div className="absolute right-0 bottom-0 w-full bg-gradient-to-t from-black/80 to-transparent p-8 text-white transition-all duration-300 group-hover:bg-gradient-to-t group-hover:from-black/80 group-hover:to-black/10 group-hover:backdrop-blur-sm">
+        <h3 className="mb-2 text-2xl font-light tracking-[1px]">
+          {project.title}
+        </h3>
         {project.location ? (
-          <p className="projects-subtitle">{project.location}</p>
+          <p className="text-base tracking-[0.5px] opacity-90">
+            {project.location}
+          </p>
         ) : null}
       </div>
     </div>
@@ -141,8 +145,8 @@ const ComingSoonCard = ({
   title,
   description,
 }: ComingSoonCardProps): JSX.Element => (
-  <div className="projects-card projects-coming-soon">
-    <div className="projects-coming-soon-icon" aria-hidden="true">
+  <div className="group bg-bg-light flex cursor-default flex-col items-center justify-center overflow-hidden p-12 text-center shadow-[0_5px_25px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-2.5 hover:shadow-[0_15px_40px_rgba(0,0,0,0.2)]">
+    <div className="text-accent mb-4 text-6xl" aria-hidden="true">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -160,21 +164,13 @@ const ComingSoonCard = ({
         <path d="M6 4v2a6 6 0 1 0 12 0v-2a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1z" />
       </svg>
     </div>
-    <h3 className="projects-coming-soon-title">{title}</h3>
-    <p className="projects-coming-soon-text">{description}</p>
-  </div>
-);
-
-const CtaSection = (): JSX.Element => (
-  <section className="projects-cta">
-    <h2 className="projects-cta-title">הפרויקט הבא יכול להיות שלכם</h2>
-    <p className="projects-cta-text">
-      בואו נדבר על איך אפשר להפוך את הבית שלכם למקום שבאמת מרגיש כמו בית
+    <h3 className="text-accent mb-4 text-2xl font-light tracking-[2px]">
+      {title}
+    </h3>
+    <p className="text-text-primary text-base leading-[1.6] whitespace-pre-line">
+      {description}
     </p>
-    <a className="projects-cta-button" href="/contact">
-      צרו קשר
-    </a>
-  </section>
+  </div>
 );
 
 export default PortfolioPage;

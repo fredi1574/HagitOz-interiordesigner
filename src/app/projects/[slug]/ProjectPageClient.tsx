@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import ImageCarousel from "../../components/ImageCarousel";
-import { ButtonLink } from "../../components/Button";
 import { useLocale } from "../../lib/LocaleProvider";
 import { Project } from "../../lib/types";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import Link from "next/link";
 
 type Props = {
   project: Project;
@@ -67,28 +67,28 @@ export default function ProjectPageClient({ project }: Props) {
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5">
-              <div className="max-w-6xl mx-auto">
-                <div className="grid lg:grid-cols-3 gap-3 lg:gap-4">
+            <div className="absolute right-0 bottom-0 left-0 p-3 sm:p-4 md:p-5">
+              <div className="mx-auto max-w-6xl">
+                <div className="grid gap-3 lg:grid-cols-3 lg:gap-4">
                   <div className="lg:col-span-2">
-                    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1.5 sm:mb-2">
+                    <h1 className="mb-1.5 text-xl font-bold text-white sm:mb-2 sm:text-2xl md:text-3xl">
                       {getLocalizedTitle()}
                     </h1>
                     {getLocalizedLocation() && (
-                      <p className="text-base sm:text-lg text-white/90 mb-2 sm:mb-3">
+                      <p className="mb-2 text-base text-white/90 sm:mb-3 sm:text-lg">
                         {getLocalizedLocation()}
                       </p>
                     )}
                     {getLocalizedDescription() && (
-                      <p className="text-xs sm:text-sm text-white/80 max-w-xl leading-snug">
+                      <p className="max-w-xl text-xs leading-snug text-white/80 sm:text-sm">
                         {getLocalizedDescription()}
                       </p>
                     )}
                   </div>
 
                   {/* Quick Project Info */}
-                  <div className=" p-3 sm:p-4 border bg-background/20 border-white/20">
-                    <h3 className="text-base font-semibold text-white mb-2">
+                  <div className="bg-background/20 border border-white/20 p-3 sm:p-4">
+                    <h3 className="mb-2 text-base font-semibold text-white">
                       {t("projects.projectDetails") as string}
                     </h3>
                     <div className="space-y-2 text-xs">
@@ -133,13 +133,13 @@ export default function ProjectPageClient({ project }: Props) {
             </div>
           </div>
         ) : (
-          <div className="h-[50vh] min-h-[400px] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center">
-            <div className="text-center px-4">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3">
+          <div className="flex h-[50vh] min-h-[400px] items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900">
+            <div className="px-4 text-center">
+              <h1 className="mb-2 text-2xl font-bold sm:mb-3 sm:text-3xl md:text-4xl">
                 {getLocalizedTitle()}
               </h1>
               {getLocalizedLocation() && (
-                <p className="text-lg sm:text-xl text-foreground/70 mb-3 sm:mb-4">
+                <p className="text-foreground/70 mb-3 text-lg sm:mb-4 sm:text-xl">
                   {getLocalizedLocation()}
                 </p>
               )}
@@ -149,43 +149,35 @@ export default function ProjectPageClient({ project }: Props) {
       </div>
 
       {/* Back Navigation */}
-      <div className="px-4 sm:px-6 lg:px-8 pt-4 pb-0">
-        <div className="max-w-6xl mx-auto">
-          <ButtonLink
+      <div className="px-4 pt-4 pb-0 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <Link
             href="/projects"
-            variant="ghost"
-            className={`
-              group inline-flex items-center gap-2
-              px-4 py-2 bg-background/80 border border-accent/30
-              text-caption text-accent font-medium
-              shadow-sm hover:bg-accent/10 transition-all duration-200
-              backdrop-blur-sm
-              focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2
-            `}
+            className={`group bg-background/80 border-accent/30 text-caption hover:bg-accent/10 focus-visible:ring-accent inline-flex items-center gap-2 border px-4 py-2 font-medium shadow-sm backdrop-blur-sm transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2`}
             style={{ boxShadow: "0 2px 8px 0 rgba(169,99,96,0.1)" }}
           >
             <span className="font-playfair tracking-wide uppercase">
               {t("projects.backToProjects") as string}
             </span>
-            <IoMdArrowRoundBack className="w-4 h-4 text-accent group-hover:-translate-x-1 transition-transform duration-200" />
-          </ButtonLink>
+            <IoMdArrowRoundBack className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-1" />
+          </Link>
         </div>
       </div>
 
       {/* Compact Project Details */}
-      <div className="py-6 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-4 gap-4 lg:gap-6">
+      <div className="px-4 py-6 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-4 lg:grid-cols-4 lg:gap-6">
             {/* Main Content - 3 columns */}
-            <div className="lg:col-span-3 space-y-4">
+            <div className="space-y-4 lg:col-span-3">
               {/* Project Highlights - Compact Grid */}
               {getLocalizedHighlights() &&
                 getLocalizedHighlights()!.length > 0 && (
-                  <div className="bg-transparent p-3 sm:p-4 border border-accent/20">
-                    <h3 className="text-base font-semibold mb-2">
+                  <div className="border-accent/20 border bg-transparent p-3 sm:p-4">
+                    <h3 className="mb-2 text-base font-semibold">
                       {t("projects.keyHighlights") as string}
                     </h3>
-                    <div className="grid sm:grid-cols-2 gap-2">
+                    <div className="grid gap-2 sm:grid-cols-2">
                       {getLocalizedHighlights()!.map((highlight, index) => (
                         <div key={index} className="flex items-start gap-2">
                           <span className="text-primary mt-1 flex-shrink-0">
@@ -202,11 +194,11 @@ export default function ProjectPageClient({ project }: Props) {
 
               {/* Challenges - Compact */}
               {getLocalizedChallenges() && (
-                <div className="bg-transparent p-3 sm:p-4 border border-accent/20">
-                  <h3 className="text-base font-semibold mb-2">
+                <div className="border-accent/20 border bg-transparent p-3 sm:p-4">
+                  <h3 className="mb-2 text-base font-semibold">
                     {t("projects.designChallenges") as string}
                   </h3>
-                  <p className="text-foreground/80 leading-snug text-xs">
+                  <p className="text-foreground/80 text-xs leading-snug">
                     {getLocalizedChallenges()}
                   </p>
                 </div>
@@ -218,15 +210,15 @@ export default function ProjectPageClient({ project }: Props) {
               {/* Materials */}
               {getLocalizedMaterials() &&
                 getLocalizedMaterials()!.length > 0 && (
-                  <div className="bg-transparent p-3 sm:p-4 border border-accent/20">
-                    <h3 className="text-base font-semibold mb-2">
+                  <div className="border-accent/20 border bg-transparent p-3 sm:p-4">
+                    <h3 className="mb-2 text-base font-semibold">
                       {t("projects.materialsUsed") as string}
                     </h3>
                     <div className="flex flex-wrap gap-1.5">
                       {getLocalizedMaterials()!.map((material, index) => (
                         <span
                           key={index}
-                          className="px-1.5 py-0.5 bg-primary/10 text-primary text-[11px]"
+                          className="bg-primary/10 text-primary px-1.5 py-0.5 text-[11px]"
                         >
                           {material}
                         </span>
@@ -237,8 +229,8 @@ export default function ProjectPageClient({ project }: Props) {
 
               {/* Team */}
               {getLocalizedTeam() && getLocalizedTeam()!.length > 0 && (
-                <div className="bg-transparent p-3 sm:p-4 border border-accent/20">
-                  <h3 className="text-base font-semibold mb-2">
+                <div className="border-accent/20 border bg-transparent p-3 sm:p-4">
+                  <h3 className="mb-2 text-base font-semibold">
                     {t("projects.projectTeam") as string}
                   </h3>
                   <ul className="space-y-1.5">
@@ -260,9 +252,9 @@ export default function ProjectPageClient({ project }: Props) {
 
       {/* Horizontal Gallery Section */}
       {Array.isArray(project.gallery) && project.gallery.length > 0 && (
-        <div className="py-6 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-xl font-bold mb-4 text-center">
+        <div className="px-4 py-6 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl">
+            <h2 className="mb-4 text-center text-xl font-bold">
               {t("projects.projectGallery") as string}
             </h2>
             <ImageCarousel
