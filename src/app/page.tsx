@@ -59,7 +59,7 @@ const AboutSection = (): JSX.Element => (
   <Hero
     id="about"
     logo={{
-      alt: "Iztrubal logo",
+      alt: "Hagit Oz Interior Design logo",
       height: 210,
       src: "/logo.png",
       width: 210,
