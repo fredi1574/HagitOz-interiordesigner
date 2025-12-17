@@ -169,6 +169,29 @@ export default function ContactPage() {
                       />
                     </div>
                   </div>
+
+                  {/* Error and Submit Button */}
+                  {error && (
+                    <div className="animate-fade-in-up mb-6 border border-red-200 bg-red-50 p-4">
+                      <div className="flex items-center gap-3">
+                        <IoCloseCircle className="h-5 w-5 flex-shrink-0 text-red-500" />
+                        <p className="text-caption text-red-700">{error}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={status !== "idle"}
+                    className="bg-accent hover:bg-text-primary disabled:hover:bg-accent my-4 flex w-full items-center justify-center gap-3 px-10 py-4 text-base tracking-[1px] text-white transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:cursor-pointer hover:shadow-[0_5px_20px_rgba(191,163,149,0.3)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-none"
+                  >
+                    {status === "submitting" && (
+                      <IoRefresh className="h-5 w-5 animate-spin" />
+                    )}
+                    {status === "submitting"
+                      ? (t("contact.form.submitSubmitting") as string)
+                      : (t("contact.form.submitIdle") as string)}
+                  </button>
                 </div>
 
                 {/* Contact Info Section */}
@@ -257,29 +280,6 @@ export default function ContactPage() {
                   </div>
                 </div>
               </div>
-
-              {/* Error and Submit Button */}
-              {error && (
-                <div className="animate-fade-in-up mb-6 border border-red-200 bg-red-50 p-4">
-                  <div className="flex items-center gap-3">
-                    <IoCloseCircle className="h-5 w-5 flex-shrink-0 text-red-500" />
-                    <p className="text-caption text-red-700">{error}</p>
-                  </div>
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={status !== "idle"}
-                className="from-accent text-background to-accent-dark mb-4 flex w-1/2 cursor-pointer items-center justify-center gap-3 border-none bg-gradient-to-br py-5 text-lg font-medium tracking-wide transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_5px_20px_rgba(191,163,149,0.4)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-none"
-              >
-                {status === "submitting" && (
-                  <IoRefresh className="h-5 w-5 animate-spin" />
-                )}
-                {status === "submitting"
-                  ? (t("contact.form.submitSubmitting") as string)
-                  : (t("contact.form.submitIdle") as string)}
-              </button>
             </form>
           </div>
         </div>
