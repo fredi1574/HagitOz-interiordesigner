@@ -24,12 +24,15 @@ export default function ImageModal({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      document.body.classList.add("image-modal-open");
     } else {
       document.body.style.overflow = "unset";
+      document.body.classList.remove("image-modal-open");
     }
 
     return () => {
       document.body.style.overflow = "unset";
+      document.body.classList.remove("image-modal-open");
     };
   }, [isOpen]);
 
@@ -58,19 +61,22 @@ export default function ImageModal({
     >
       {/* Close Button */}
       <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        className="absolute top-4 right-4 z-[60] rounded-full bg-black/70 p-3 text-white shadow-lg transition-all duration-200 hover:scale-110 hover:bg-black/90"
         aria-label="Close image"
       >
-        <IoClose className="w-6 h-6" />
+        <IoClose className="h-7 w-7" />
       </button>
 
       {/* Image Container */}
       <div
-        className="relative max-w-[90vw] max-h-[90vh] w-full h-full flex items-center justify-center p-4"
+        className="relative flex h-full max-h-[90vh] w-full max-w-[90vw] items-center justify-center p-4"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative w-full h-full max-w-6xl max-h-full">
+        <div className="relative h-full max-h-full w-full max-w-6xl">
           <Image
             src={src}
             alt={alt}
@@ -84,13 +90,13 @@ export default function ImageModal({
 
       {/* Caption */}
       {caption && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded text-sm max-w-md text-center">
+        <div className="absolute bottom-4 left-1/2 max-w-md -translate-x-1/2 rounded bg-black/70 px-4 py-2 text-center text-sm text-white">
           {caption}
         </div>
       )}
 
       {/* Instructions */}
-      <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded text-xs">
+      <div className="absolute right-4 bottom-4 rounded bg-black/50 px-3 py-1 text-xs text-white">
         {t("gallery.pressEscToClose") as string}
       </div>
     </div>

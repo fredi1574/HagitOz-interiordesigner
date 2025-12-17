@@ -218,3 +218,8 @@ footer {
     font-size: 2rem;
   }
 }
+
+/* Hide navbar when image modal is open */
+body.image-modal-open header {
+  display: none !important;
+}
