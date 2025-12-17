@@ -70,7 +70,7 @@ const PortfolioPage = async (): Promise<JSX.Element> => {
 
 const InfoBanner = (): JSX.Element => (
   <div className="mx-auto mb-20 max-w-[800px] bg-white p-12 text-center">
-    <p className="text-text-primary mb-8 text-[1.1rem] leading-[1.8]">
+    <p className="text-text-secondary mb-8 text-base leading-[2]">
       הפרויקטים מוצגים בצורה מפורטת שתעזור לכם להכיר את תהליך העבודה והתוצאה
       הסופית. פרויקטים חדשים מתווספים שאופן שוטף ברגע שהם מוכנים להצגה מושלמת
     </p>
@@ -167,7 +167,7 @@ const ComingSoonCard = ({
     <h3 className="text-accent mb-4 text-2xl font-light tracking-[2px]">
       {title}
     </h3>
-    <p className="text-text-primary text-base leading-[1.6] whitespace-pre-line">
+    <p className="text-text-secondary text-base leading-[2] whitespace-pre-line">
       {description}
     </p>
   </div>

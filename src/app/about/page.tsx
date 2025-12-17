@@ -60,10 +60,7 @@ const StorySection = (): JSX.Element => (
       [תמונה של המעצבת]
     </div>
     {storyParagraphs.map((text) => (
-      <p
-        className="text-text-primary mb-8 text-[1.15rem] leading-[2.2]"
-        key={text}
-      >
+      <p className="text-text-secondary mb-8 text-base leading-[2]" key={text}>
         {text}
       </p>
     ))}
@@ -71,10 +68,7 @@ const StorySection = (): JSX.Element => (
       ומכאן זה התחיל...
     </p>
     {storyJourney.map((text) => (
-      <p
-        className="text-text-primary mb-8 text-[1.15rem] leading-[2.2]"
-        key={text}
-      >
+      <p className="text-text-secondary mb-8 text-base leading-[2]" key={text}>
         {text}
       </p>
     ))}
@@ -84,10 +78,7 @@ const StorySection = (): JSX.Element => (
 const ApproachSection = (): JSX.Element => (
   <section className="mx-auto max-w-7xl">
     {approachParagraphs.map((text) => (
-      <p
-        className="text-text-primary mb-8 text-[1.15rem] leading-[2.2]"
-        key={text}
-      >
+      <p className="text-text-secondary mb-8 text-base leading-[2]" key={text}>
         {text}
       </p>
     ))}
@@ -111,7 +102,7 @@ const ValuesSection = (): JSX.Element => (
           <h3 className="text-accent mb-4 text-[1.4rem] font-normal tracking-[1px]">
             {value.title}
           </h3>
-          <p className="text-text-primary text-[1.05rem] leading-[1.9]">
+          <p className="text-text-secondary text-base leading-[2]">
             {value.description}
           </p>
         </article>
@@ -122,7 +113,7 @@ const ValuesSection = (): JSX.Element => (
 
 const ClosingSection = (): JSX.Element => (
   <section className="mx-auto my-24 max-w-[900px] px-[5%] text-center">
-    <p className="text-text-primary text-[1.3rem] leading-[2]">
+    <p className="text-text-secondary text-base leading-[2]">
       אני מזמינה אתכם למסע משותף שבו נבין יחד מה באמת חשוב לכם, נחלום על
       האפשרויות, וניצור את הבית שמשקף את מי שאתם באמת.
     </p>

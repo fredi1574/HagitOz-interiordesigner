@@ -146,7 +146,7 @@ const ServicesPage = (): JSX.Element => (
 
 const IntroSection = (): JSX.Element => (
   <section className="mx-auto my-20 max-w-[900px] px-[5%] text-center">
-    <p className="text-text-primary text-[1.2rem] leading-[2.2]">{introText}</p>
+    <p className="text-text-secondary text-base leading-[2]">{introText}</p>
   </section>
 );
 
@@ -167,13 +167,13 @@ const ServiceCard = ({
       {service.title}
     </h3>
     <p className="text-accent mb-6 text-[1.1rem] italic">{service.subtitle}</p>
-    <p className="text-text-primary mb-6 text-[1.05rem] leading-[2]">
+    <p className="text-text-secondary mb-6 text-base leading-[2]">
       {service.description}
     </p>
     <ul className="mt-6 list-none p-0">
       {service.features.map((feature) => (
         <li
-          className="border-bg-light text-text-primary relative border-b py-[0.7rem] text-base last:border-b-0"
+          className="border-bg-light text-text-secondary relative border-b py-[0.7rem] text-base last:border-b-0"
           key={feature}
         >
           <span className="text-accent ml-2 font-bold">✓</span>
@@ -223,7 +223,7 @@ const ProcessSection = (): JSX.Element => (
           <h4 className="text-text-primary mb-4 text-[1.3rem] font-normal">
             {step.title}
           </h4>
-          <p className="text-text-primary text-base leading-[1.8]">
+          <p className="text-text-secondary text-base leading-[2]">
             {step.text}
           </p>
         </article>
@@ -245,7 +245,7 @@ const FaqSection = (): JSX.Element => (
         <h4 className="text-accent mb-4 text-[1.3rem] font-medium">
           {item.question}
         </h4>
-        <p className="text-text-primary text-[1.05rem] leading-[2]">
+        <p className="text-text-secondary text-base leading-[2]">
           {item.answer}
         </p>
       </article>
