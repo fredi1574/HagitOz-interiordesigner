@@ -150,39 +150,66 @@ const IntroSection = (): JSX.Element => (
   </section>
 );
 
-const ServicesSection = (): JSX.Element => (
-  <section className="mx-auto my-24 max-w-[1800px] px-[5%]">
-    <div className="grid grid-cols-3 gap-12">
-      {services.map((service) => (
-        <article
-          className="hover:border-r-accent bg-muted/20 hover:bg-muted/40 border-r-4 border-r-transparent p-12 shadow-[0_5px_25px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(0,0,0,0.15)]"
-          key={service.title}
+/**
+ * Renders a single service card.
+ */
+const ServiceCard = ({
+  service,
+  className = "",
+}: {
+  service: (typeof services)[number];
+  className?: string;
+}): JSX.Element => (
+  <article
+    className={`hover:border-r-accent bg-muted/20 hover:bg-muted/40 border-r-4 border-r-transparent p-12 shadow-[0_5px_25px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(0,0,0,0.15)] ${className}`}
+  >
+    <h3 className="text-text-primary mb-4 text-[1.8rem] font-normal tracking-[1px]">
+      {service.title}
+    </h3>
+    <p className="text-accent mb-6 text-[1.1rem] italic">{service.subtitle}</p>
+    <p className="text-text-primary mb-6 text-[1.05rem] leading-[2]">
+      {service.description}
+    </p>
+    <ul className="mt-6 list-none p-0">
+      {service.features.map((feature) => (
+        <li
+          className="border-bg-light text-text-primary relative border-b py-[0.7rem] text-base last:border-b-0"
+          key={feature}
         >
-          <h3 className="text-text-primary mb-4 text-[1.8rem] font-normal tracking-[1px]">
-            {service.title}
-          </h3>
-          <p className="text-accent mb-6 text-[1.1rem] italic">
-            {service.subtitle}
-          </p>
-          <p className="text-text-primary mb-6 text-[1.05rem] leading-[2]">
-            {service.description}
-          </p>
-          <ul className="mt-6 list-none p-0">
-            {service.features.map((feature) => (
-              <li
-                className="border-bg-light text-text-primary relative border-b py-[0.7rem] text-base last:border-b-0"
-                key={feature}
-              >
-                <span className="text-accent ml-2 font-bold">✓</span>
-                {feature}
-              </li>
-            ))}
-          </ul>
-        </article>
+          <span className="text-accent ml-2 font-bold">✓</span>
+          {feature}
+        </li>
       ))}
-    </div>
-  </section>
+    </ul>
+  </article>
 );
+
+/**
+ * Services layout with centered second row and mobile-friendly stacking.
+ */
+const ServicesSection = (): JSX.Element => {
+  const firstRow = services.slice(0, 3);
+  const secondRow = services.slice(3);
+
+  return (
+    <section className="mx-auto my-24 max-w-[1800px] px-[5%]">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 xl:grid-cols-3 xl:gap-12">
+        {firstRow.map((service) => (
+          <ServiceCard key={service.title} service={service} />
+        ))}
+      </div>
+      <div className="mt-10 flex flex-wrap justify-center gap-6 sm:mt-12 sm:gap-8">
+        {secondRow.map((service) => (
+          <ServiceCard
+            className="w-full max-w-[520px] sm:w-[calc(50%-12px)] xl:w-[calc(33.333%-16px)]"
+            key={service.title}
+            service={service}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};
 
 const ProcessSection = (): JSX.Element => (
   <section className="from-bg-light to-muted my-24 bg-gradient-to-b px-[5%] py-24 text-center">
