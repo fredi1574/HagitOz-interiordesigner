@@ -185,31 +185,17 @@ const ServiceCard = ({
 );
 
 /**
- * Services layout with centered second row and mobile-friendly stacking.
+ * Services section with all cards in a responsive grid.
  */
-const ServicesSection = (): JSX.Element => {
-  const firstRow = services.slice(0, 3);
-  const secondRow = services.slice(3);
-
-  return (
-    <section className="mx-auto my-24 max-w-[1800px] px-[5%]">
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 xl:grid-cols-3 xl:gap-12">
-        {firstRow.map((service) => (
-          <ServiceCard key={service.title} service={service} />
-        ))}
-      </div>
-      <div className="mt-10 flex flex-wrap justify-center gap-6 sm:mt-12 sm:gap-8">
-        {secondRow.map((service) => (
-          <ServiceCard
-            className="w-full max-w-[520px] sm:w-[calc(50%-12px)] xl:w-[calc(33.333%-16px)]"
-            key={service.title}
-            service={service}
-          />
-        ))}
-      </div>
-    </section>
-  );
-};
+const ServicesSection = (): JSX.Element => (
+  <section className="mx-auto my-24 max-w-[1800px] px-[5%]">
+    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 xl:grid-cols-3 xl:gap-12">
+      {services.map((service) => (
+        <ServiceCard key={service.title} service={service} />
+      ))}
+    </div>
+  </section>
+);
 
 const ProcessSection = (): JSX.Element => (
   <section className="from-bg-light to-muted my-24 bg-gradient-to-b px-[5%] py-24 text-center">
