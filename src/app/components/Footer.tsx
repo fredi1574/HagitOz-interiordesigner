@@ -7,7 +7,7 @@ const links = [
     alt: "Instagram",
   },
   {
-    href: "https://www.facebook.com/hagitp.interior.design",
+    href: "https://www.facebook.com/hagitoz.interior.design",
     icon: "/facebook.png",
     alt: "Facebook",
   },
