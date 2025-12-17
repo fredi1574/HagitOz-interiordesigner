@@ -108,10 +108,7 @@ const PhilosophySection = (): JSX.Element => (
 );
 
 const PortfolioSection = (): JSX.Element => (
-  <section
-    className="mx-auto my-32 max-w-[1400px] px-[5%] py-32"
-    id="portfolio"
-  >
+  <section className="mx-auto max-w-[1400px] px-[5%] py-10" id="portfolio">
     <h2 className="mb-16 text-center text-2xl font-light tracking-[2px] md:text-3xl">
       פרויקטים נבחרים
     </h2>
