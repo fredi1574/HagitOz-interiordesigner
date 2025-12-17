@@ -56,7 +56,7 @@ const AboutPage = (): JSX.Element => (
 
 const StorySection = (): JSX.Element => (
   <section className="mx-auto max-w-7xl overflow-hidden py-8">
-    <div className="mb-8 flex h-[400px] w-full items-center justify-center bg-gradient-to-br from-muted to-accent text-center text-text-primary md:float-right md:ml-8 md:h-[600px] md:w-[40%] md:max-w-[500px] md:[shape-outside:inset(0)]">
+    <div className="from-muted to-accent text-text-primary mb-8 flex h-[400px] w-full items-center justify-center bg-gradient-to-br text-center md:float-right md:ml-8 md:h-[600px] md:w-[40%] md:max-w-[500px] md:[shape-outside:inset(0)]">
       [תמונה של המעצבת]
     </div>
     {storyParagraphs.map((text) => (
@@ -67,7 +67,7 @@ const StorySection = (): JSX.Element => (
         {text}
       </p>
     ))}
-    <p className="border-r-accent bg-bg-light text-accent my-4 border-r-4 px-6 py-6 text-[1.25rem] font-normal leading-[2] md:[margin-right:calc(40%+2rem)]">
+    <p className="border-r-accent bg-bg-light text-accent my-4 border-r-4 px-6 py-6 text-[1.25rem] leading-[2] font-normal md:[margin-right:calc(40%+2rem)]">
       ומכאן זה התחיל...
     </p>
     {storyJourney.map((text) => (
@@ -91,7 +91,7 @@ const ApproachSection = (): JSX.Element => (
         {text}
       </p>
     ))}
-    <p className="border-r-accent bg-bg-light text-accent my-4 border-r-4 px-6 py-6 text-[1.25rem] font-normal leading-[2]">
+    <p className="border-r-accent bg-bg-light text-accent my-4 border-r-4 px-6 py-6 text-[1.25rem] leading-[2] font-normal">
       בעיניי, עיצוב הוא לא רק איך המקום נראה, אלא איך הוא גורם לנו להרגיש.
     </p>
   </section>
