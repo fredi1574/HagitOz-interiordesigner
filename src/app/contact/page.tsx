@@ -242,10 +242,10 @@ export default function ContactPage() {
                         <div className="flex-1">
                           <span className="text-foreground/70">
                             <a
-                              href="mailto:design@example.com"
+                              href="mailto:hagit.interior.design@gmail.com"
                               className="hover:text-foreground no-underline transition-colors duration-300"
                             >
-                              design@example.com
+                              hagit.interior.design@gmail.com
                             </a>
                           </span>
                         </div>
