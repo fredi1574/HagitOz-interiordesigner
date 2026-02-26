@@ -59,9 +59,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
       whatsappLink: "Send a message",
       email: "Email",
       location: "Service area",
-      locationValue: "Haifa, Krayot and the North",
-      hours: "Available hours",
-      hoursValue: "Sun–Thu, 9:00–17:00",
       socialTitle: "Follow us",
       social: {
         instagram: "Instagram",
@@ -246,9 +243,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
       whatsappLink: "שלחו הודעה",
       email: "אימייל",
       location: "אזור פעילות",
-      locationValue: "חיפה, קריות וצפון",
-      hours: "שעות זמינות",
-      hoursValue: "א'–ה', 9:00–17:00",
       socialTitle: "עקבו אחרינו",
       social: {
         instagram: "אינסטגרם",

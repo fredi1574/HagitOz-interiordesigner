@@ -250,32 +250,6 @@ export default function ContactPage() {
                           </span>
                         </div>
                       </div>
-
-                      {/* Location */}
-                      <div className="flex items-center gap-4 p-4 transition-all duration-300 hover:scale-[1.02]">
-                        <div className="min-w-[30px] text-2xl">
-                          <LuMapPin />
-                        </div>
-                        <div className="flex-1">
-                          <span className="text-foreground/70">
-                            {(t("contact.locationValue") as string) ||
-                              "Haifa, Krayot and the North"}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Hours */}
-                      <div className="flex items-center gap-4 p-4 transition-all duration-300 hover:scale-[1.02]">
-                        <div className="min-w-[30px] text-2xl">
-                          <LuClock3 />
-                        </div>
-                        <div className="flex-1">
-                          <span className="text-foreground/70">
-                            {(t("contact.hoursValue") as string) ||
-                              "Sun–Thu, 9:00–17:00"}
-                          </span>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
