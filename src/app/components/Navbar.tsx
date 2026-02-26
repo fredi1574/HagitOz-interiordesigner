@@ -1,10 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type JSX } from "react";
 import { createPortal } from "react-dom";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa6";
 import { useLocale } from "../lib/LocaleProvider";
+import { getDirection } from "../lib/i18n";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const linkDefs = [
@@ -46,16 +49,20 @@ function NavLinks({
 }: NavLinksProps): JSX.Element {
   return (
     <>
-      {linkDefs.map((link) => {
+      {linkDefs.map((link, index) => {
         const active = pathname === link.href;
         const stateClasses = active
           ? "text-accent-alt font-medium"
           : "text-text-secondary hover:text-accent-alt";
+        const staggerClass = itemClass.includes("stagger")
+          ? `stagger-${index + 1}`
+          : "";
+
         return (
           <Link
             key={link.href}
             href={link.href}
-            className={`${itemClass} ${stateClasses}`}
+            className={`${itemClass} ${stateClasses} ${staggerClass}`}
             onClick={onNavigate}
           >
             {t(link.key) as string}
@@ -96,6 +103,10 @@ function MobileDrawer({
   pathname,
   t,
 }: MobileDrawerProps): JSX.Element {
+  const { locale } = useLocale();
+  const isRtl = getDirection(locale) === "rtl";
+  const slideAnimation = isRtl ? "animate-slide-in-left" : "animate-slide-in-right";
+
   return (
     <div
       className="fixed inset-0 z-50 flex md:hidden"
@@ -106,34 +117,67 @@ function MobileDrawer({
       <button
         type="button"
         aria-label="Close navigation menu"
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        className="absolute inset-0 bg-background/60 backdrop-blur-md transition-opacity duration-300"
         onClick={onNavigate}
       />
-      <div className="border-border bg-background animate-slide-in-right ml-auto flex h-full w-72 flex-col border-l shadow-2xl">
-        <div className="border-border flex items-center justify-end border-b px-4 py-3">
+      <div
+        className={`border-border bg-background flex h-full w-[85%] max-w-sm flex-col border-r shadow-2xl transition-transform duration-500 ease-in-out ${slideAnimation} ${isRtl ? "mr-auto border-r-0 border-l" : "ml-auto"}`}
+      >
+        {/* Mobile Header with Logo */}
+        <div className="flex items-center justify-between border-b border-border/40 px-6 py-5">
+          <Link href="/" className="flex items-center" onClick={onNavigate}>
+            <Image
+              src="/logo.png"
+              alt="Hagit Oz Logo"
+              width={100}
+              height={40}
+              className="h-auto w-auto brightness-90 grayscale hover:grayscale-0 transition-all"
+            />
+          </Link>
           <button
             type="button"
             aria-label="Close navigation drawer"
-            className="border-border hover:border-accent focus-visible:ring-accent flex h-9 w-9 items-center justify-center rounded-full border transition-colors focus-visible:ring-2 focus-visible:outline-none"
+            className="text-text-secondary hover:text-accent transition-colors p-2"
             onClick={onNavigate}
           >
             <span className="sr-only">Close</span>
-            <span className="relative block h-4 w-4">
-              <span className="bg-foreground absolute top-1/2 left-1/2 h-0.5 w-full -translate-x-1/2 rotate-45" />
-              <span className="bg-foreground absolute top-1/2 left-1/2 h-0.5 w-full -translate-x-1/2 -rotate-45" />
-            </span>
+            <div className="relative h-6 w-6">
+              <span className="bg-current absolute top-1/2 left-0 h-0.5 w-full -translate-y-1/2 rotate-45 rounded-full" />
+              <span className="bg-current absolute top-1/2 left-0 h-0.5 w-full -translate-y-1/2 -rotate-45 rounded-full" />
+            </div>
           </button>
         </div>
-        <nav className="flex flex-col gap-3 overflow-y-auto px-5 py-6">
+
+        {/* Navigation Links */}
+        <nav className="flex flex-col gap-1 overflow-y-auto px-6 py-8">
           <NavLinks
-            itemClass="site-nav-link text-base transition-colors duration-300"
+            itemClass="site-nav-link text-lg py-3 opacity-0 animate-fade-in-up"
             onNavigate={onNavigate}
             pathname={pathname}
             t={t}
           />
         </nav>
-        <div className="border-border mt-auto border-t px-5 py-5">
-          <LanguageSwitcher menuPlacement="top" />
+
+        {/* Social Links & Language */}
+        <div className="mt-auto border-t border-border/40 p-6 space-y-8 animate-fade-in-up stagger-6 opacity-0">
+          <div className="flex items-center gap-6">
+            <a href="#" className="text-text-secondary hover:text-accent-alt transition-colors" aria-label="Instagram">
+              <FaInstagram size={22} />
+            </a>
+            <a href="#" className="text-text-secondary hover:text-accent-alt transition-colors" aria-label="Facebook">
+              <FaFacebookF size={20} />
+            </a>
+            <a href="#" className="text-text-secondary hover:text-accent-alt transition-colors" aria-label="LinkedIn">
+              <FaLinkedinIn size={22} />
+            </a>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <p className="text-[10px] uppercase tracking-widest text-text-secondary/60 font-medium">
+              {locale === 'en' ? 'Select Language' : 'בחירת שפה'}
+            </p>
+            <LanguageSwitcher menuPlacement="top" />
+          </div>
         </div>
       </div>
     </div>
@@ -166,24 +210,23 @@ function MobileToggle({ onToggle, open }: MobileToggleProps): JSX.Element {
       type="button"
       aria-label="Toggle navigation menu"
       aria-expanded={open}
-      className="border-border hover:border-accent focus-visible:ring-accent flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full border transition-colors focus-visible:ring-2 focus-visible:outline-none md:hidden"
+      className="group relative flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-black/5 md:hidden"
       onClick={onToggle}
     >
-      <span
-        className={`bg-foreground h-0.5 w-6 rounded transition-transform ${
-          open ? "translate-y-1.5 rotate-45" : ""
-        }`}
-      />
-      <span
-        className={`bg-foreground h-0.5 w-6 rounded transition-opacity ${
-          open ? "opacity-0" : ""
-        }`}
-      />
-      <span
-        className={`bg-foreground h-0.5 w-6 rounded transition-transform ${
-          open ? "-translate-y-1.5 -rotate-45" : ""
-        }`}
-      />
+      <div className="flex h-5 w-6 flex-col items-center justify-center gap-1.5">
+        <span
+          className={`bg-foreground h-0.5 w-full rounded-full transition-all duration-300 ease-out ${open ? "translate-y-2 rotate-45" : ""
+            }`}
+        />
+        <span
+          className={`bg-foreground h-0.5 w-full rounded-full transition-all duration-300 ease-out ${open ? "opacity-0 scale-x-0" : ""
+            }`}
+        />
+        <span
+          className={`bg-foreground h-0.5 w-full rounded-full transition-all duration-300 ease-out ${open ? "-translate-y-2 -rotate-45" : ""
+            }`}
+        />
+      </div>
     </button>
   );
 }
