@@ -60,6 +60,13 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+p,
+.hero-text,
+.home-about-hero-text {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 .card {
   background-color: var(--muted);
   border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
