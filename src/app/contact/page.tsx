@@ -8,6 +8,7 @@ import { LuClock3, LuMapPin } from "react-icons/lu";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { useLocale } from "../lib/LocaleProvider";
 import { getDirection } from "../lib/i18n";
+import { Hero } from "../components/Hero";
 
 export default function ContactPage() {
   const { t, locale } = useLocale();
@@ -88,9 +89,7 @@ export default function ContactPage() {
       <div className="mx-auto w-full">
         <div className="overflow-hidden rounded-3xl">
           {/* Header Section */}
-          <section className="hero">
-            <h1 className="hero-title">{t("contact.headerTitle") as string}</h1>
-          </section>
+          <Hero title={t("contact.headerTitle") as string} />
 
           {/* Content Section */}
           <div className="mx-auto w-full max-w-4xl p-8 md:p-12">

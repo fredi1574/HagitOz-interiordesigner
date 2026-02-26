@@ -14,26 +14,22 @@ type HeroProps = {
 };
 
 export const Hero = ({ title, text, logo, id }: HeroProps): JSX.Element => {
-  const hasLogo = Boolean(logo);
-  const className = hasLogo ? "hero home-about-hero" : "hero";
-  const titleClassName = hasLogo ? "home-about-hero-title" : "hero-title";
-  const textClassName = hasLogo ? "home-about-hero-text" : "hero-text";
-
   return (
-    <section className={className} id={id}>
+    <section className="hero" id={id}>
       {logo && (
-        <div className="home-about-hero-logo">
+        <div className="hero-logo-container">
           <Image
             alt={logo.alt}
-            className="home-about-hero-logo-image"
+            className="hero-logo-image"
             height={logo.height}
             src={logo.src}
             width={logo.width}
+            priority
           />
         </div>
       )}
-      <h1 className={titleClassName}>{title}</h1>
-      {text && <p className={textClassName}>{text}</p>}
+      <h1 className="hero-title">{title}</h1>
+      {text && <p className="hero-text">{text}</p>}
     </section>
   );
 };
